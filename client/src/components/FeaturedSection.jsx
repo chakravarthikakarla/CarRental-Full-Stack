@@ -58,7 +58,8 @@ const FeaturedSection = () => {
         transition={{duration:0.4,delay:0.6}}
 
         onClick={() => { navigate('/cars'); scrollTo(0,0) }}
-        className='flex items-center justify-center gap-2 px-4 py-2  mt-9 border borderColor hover:bg-gray-50'>
+        className='flex items-center justify-center gap-2 px-4 py-2 mt-9 border borderColor hover:bg-gray-50 rounded-lg
+'>
             Explore all cars <img src={assets.arrow_icon} alt="arrow" />
         </motion.button>
       

@@ -11,7 +11,7 @@ const Newsletter = () => {
     viewport={{once:true,amount:0.3}}
 
      className="flex flex-col items-center
-     justify-center text-center space-y-2 max-md:px-4 my-10 mb-40">
+     justify-center text-center space-y-2 mt-5 max-md:px-4 my-10 mb-40">
             <motion.h1
             initial={{opacity:0,y:20}}
             whileInView={{opacity:1,y:0}}
@@ -35,7 +35,7 @@ const Newsletter = () => {
                     placeholder="Enter your email id"
                     required
                 />
-                <button type="submit" className="md:px-12 px-8 h-full text-white 
+                <button type="submit" className="md:px-12 mt-20 px-8 h-full text-white 
                 bg-primary hover:bg-primary-dull transition-all cursor-pointer 
                 rounded-md rounded-l-none">
                     Subscribe

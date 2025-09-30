@@ -120,33 +120,73 @@ const CarDetails = () => {
          </motion.div>
          { /* Right: Booking section */}
          <motion.form
-         initial={{opacity:0,y:30}}
-      animate={{opacity:1,y:0}}
-      transition={{duration:0.6,delay:0.3}}
+  initial={{ opacity: 0, y: 30 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6, delay: 0.3 }}
+  onSubmit={handleSubmit}
+  className="shadow-lg h-max sticky top-18 rounded-xl p-6 space-y-6 text-gray-500"
+>
+  <p className="flex items-center justify-between text-2xl text-gray-800">
+    {currency}
+    {car.pricePerDay}
+    <span className="text-base text-gray-400 font-normal">per day</span>
+  </p>
 
-          onSubmit={handleSubmit}
-         className="shadow-lg h-max sticky top-18 rounded-xl p-6 space-y-6 text-gray-500">
-          <p className='flex items-center justify-between text-2xl text-gray-800 '>{currency}{car.pricePerDay}
-            <span className='text-base text-gray-400 font-normal'>per day</span></p>
+  <hr className="border-borderColor my-6" />
 
-            <hr className='border-borderColor my-6' />
+  {/* Pickup Date */}
+  <motion.div
+    key="pickup-date"
+    initial={{ opacity: 0, y: 10 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.4 }}
+    className="flex flex-col gap-2"
+  >
+    <label htmlFor="pickup-date" className="block mb-2">
+      Pick-up Date
+    </label>
+    <input
+      value={pickupDate}
+      onChange={(e) => {
+        setPickupDate(e.target.value);
+        setReturnDate(""); // clear return date if pickup changes
+      }}
+      type="date"
+      id="pickup-date"
+      className="border border-borderColor px-3 py-2 rounded-lg"
+      required
+    />
+  </motion.div>
 
-            <div className='flex flex-col gap-2'>
-              <label htmlFor="pickup-date" className='block mb-2'>Pick-up Date</label>
-              <input value={pickupDate} onChange={(e)=>setPickupDate(e.target.value)} type="date" id="pickup-date" className='border border-borderColor px-3 py-2 rounded-lg' required  min={new Date().toISOString().split("T")[0]} />
-            </div>
+  {/* Return Date */}
+  <motion.div
+    key={`return-${pickupDate}`} // triggers re-animation when pickupDate changes
+    initial={{ opacity: 0, y: 10 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.4, delay: 0.1 }}
+    className="flex flex-col gap-2"
+  >
+    <label htmlFor="return-date" className="block mb-2">
+      Return Date
+    </label>
+    <input
+      value={returnDate}
+      onChange={(e) => setReturnDate(e.target.value)}
+      type="date"
+      id="return-date"
+      className="border border-borderColor px-3 py-2 rounded-lg"
+      required
+      min={pickupDate} // prevents selecting a date before pickup
+    />
+  </motion.div>
 
-             <div className='flex flex-col gap-2'>
-              <label htmlFor="return-date" className='block mb-2'>Return Date</label>
-              <input value={returnDate} onChange={(e)=>setReturnDate(e.target.value)} type="date" id="return-date" className='border border-borderColor px-3 py-2 rounded-lg' required  min={new Date().toISOString().split("T")[0]} />
-            </div>
+  <button
+    className="w-full bg-primary hover:bg-primary-dull transition-all py-3 font-medium text-white rounded-xl cursor-pointer"
+  >
+    Book Now
+  </button>
+</motion.form>
 
-            <button className='w-full bg-primary hover:bg-primary-dull
-            transition-all py-3 font-medium text-white rounded-xl cursor-pointer'>Book Now</button>
-
-
-          
-         </motion.form>
 
       </div>
     </div>

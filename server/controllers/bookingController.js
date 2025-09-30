@@ -46,18 +46,39 @@ export const createBooking = async (req, res) => {
     const { _id } = req.user;
     const { car, pickupDate, returnDate } = req.body;
 
-    const isAvailable = await checkAvailability(car, pickupDate, returnDate);
-    if (!isAvailable) {
-      return res.json({ success: false, message: "Car is not available" });
-    }
-    const carData = await Car.findById(car);
-
-    // calculate price based on pickupDate and returnDate
     const picked = new Date(pickupDate);
     const returned = new Date(returnDate);
-    const noOfDays = Math.ceil((returned - picked) / (1000 * 60 * 60 * 24));
+
+    // ❗ 1. Validate date logic
+    if (returned < picked) {
+      return res.status(400).json({
+        success: false,
+        message: "Return date must be on or after pickup date",
+      });
+    }
+
+    // 2. Check availability
+    const isAvailable = await checkAvailability(car, pickupDate, returnDate);
+    if (!isAvailable) {
+      return res.status(400).json({ success: false, message: "Car is not available" });
+    }
+
+    const carData = await Car.findById(car);
+    if (!carData) {
+      return res.status(404).json({ success: false, message: "Car not found" });
+    }
+
+    // ✅ 3. Calculate no. of days and price
+    const noOfDays = Math.max(
+      Math.ceil((returned - picked) / (1000 * 60 * 60 * 24)),
+      1
+    );
     const price = carData.pricePerDay * noOfDays;
 
+    // 🛠️ Optional log for debugging
+    console.log(`Booking for ${noOfDays} day(s), Total Price: $${price}`);
+
+    // 4. Create booking
     await Booking.create({
       car,
       owner: carData.owner,
@@ -66,12 +87,15 @@ export const createBooking = async (req, res) => {
       returnDate,
       price,
     });
-    res.json({ success: true, message: "Booking Created" });
+
+    return res.status(201).json({ success: true, message: "Booking Created" });
+
   } catch (error) {
-    console.log(error.message);
-    res.json({ success: false, message: error.message });
+    console.error("Booking creation failed:", error.message);
+    return res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };
+
 
 //API  to List User Bookings
 export const getUserBookings = async (req, res) => {

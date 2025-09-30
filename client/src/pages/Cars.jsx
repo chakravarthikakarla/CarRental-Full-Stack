@@ -39,6 +39,15 @@ const Cars = () => {
     setFilteredCars(filtered)
   }
   const searchCarAvailability = async () => {
+  // Validate date logic
+  const pickup = new Date(pickupDate);
+  const returnD = new Date(returnDate);
+
+  if (returnD < pickup) {
+    toast.error("Return date cannot be before pickup date");
+    return;
+  }
+
   console.log('Calling /check-availability API with:', {
     location: pickupLocation,
     pickupDate,

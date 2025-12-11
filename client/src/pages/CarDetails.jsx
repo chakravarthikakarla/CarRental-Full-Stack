@@ -133,6 +133,8 @@ const CarDetails = () => {
         {/* -------------------------
             RIGHT: Booking Form
         -------------------------- */}
+        {/* trigger redeploy */}
+
         <motion.form
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -194,7 +196,7 @@ const CarDetails = () => {
   disabled={!pickupDate || !returnDate}
   className="w-full bg-primary ... disabled:opacity-50"
 >
-  Book Now
+  Book Now 
 </button>
 
         </motion.form>

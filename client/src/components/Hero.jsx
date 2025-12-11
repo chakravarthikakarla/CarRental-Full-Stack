@@ -17,10 +17,10 @@ const Hero = () => {
     }
 
     // 2️⃣ Validate form fields
-    if (!pickupLocation || !pickupDate || !returnDate) {
-      alert("Please fill all fields before searching.");
-      return;
-    }
+    // if (!pickupLocation || !pickupDate || !returnDate) {
+    //   alert("Please fill all fields before searching.");
+    //   return;
+    // }
 
     // 3️⃣ Navigate to /cars with query params
     navigate(
@@ -60,6 +60,7 @@ const Hero = () => {
             <select
               value={pickupLocation}
               onChange={(e) => setPickupLocation(e.target.value)}
+              required
             >
               <option value="">Pickup Location</option>
               {cityList.map((city) => (
@@ -80,6 +81,7 @@ const Hero = () => {
               id="pickup-date"
               min={new Date().toISOString().split("T")[0]}
               className='text-sm text-gray-500'
+              required
             />
           </div>
 
@@ -91,6 +93,7 @@ const Hero = () => {
               type="date"
               id="return-date"
               className='text-sm text-gray-500'
+              required
             />
           </div>
         </div>

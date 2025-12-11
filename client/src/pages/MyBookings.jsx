@@ -12,22 +12,23 @@ const MyBookings = () => {
   const [bookings, setBookings] = useState([])
 
   const fetchMyBookings = async () => {
-    try{
-      const {data} = await axios.get('/api/bookings/user')
-      if(data.success){
-        setBookings(data.bookings)
-      }else{
-        toast.error(data.message)
-      }
-    } catch(error){
-              toast.error(data.message)
-
+  try {
+    const { data } = await axios.get("/api/bookings/user");
+    if (data?.success) {
+      setBookings(data.bookings || []);
+    } else {
+      toast.error(data?.message || "Failed to load bookings");
     }
+  } catch (err) {
+    const message = err?.response?.data?.message || err?.message || "Something went wrong";
+    toast.error(message);
   }
+};
 
-  useEffect(() => {
-    user && fetchMyBookings()
-  }, [user])
+useEffect(() => {
+  if (user) fetchMyBookings();
+}, [user]);
+
 
   return (
     <motion.div

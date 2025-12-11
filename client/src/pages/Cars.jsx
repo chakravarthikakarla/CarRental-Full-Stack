@@ -78,9 +78,13 @@ const Cars = () => {
 };
 
 
-  useEffect(()=>{
-    isSearchData && searchCarAvailability()
-  },[])
+  useEffect(() => {
+  if (isSearchData) {
+    searchCarAvailability();
+  }
+  // run when any of the search params change
+}, [isSearchData, pickupLocation, pickupDate, returnDate]);
+
 
   useEffect(()=>{
     cars.length > 0 && !isSearchData && applyFilter()

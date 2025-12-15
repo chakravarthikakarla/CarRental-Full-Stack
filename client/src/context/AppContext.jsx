@@ -102,7 +102,7 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:3000";
+const BASE_URL = import.meta.env.VITE_BASE_URL || "https://carrental-full-stack.onrender.com/";
 
 // create an axios instance
 const api = axios.create({

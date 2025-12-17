@@ -6,10 +6,10 @@ A modern full-stack web application where users can browse cars, check availabil
 ## Demo / Live
 
 Frontend: 
-https://car-rental-ten-blush.vercel.app
+https://carrentalmern.netlify.app
 
 Backend: 
-https://car-rental-server-orcin.vercel.app
+https://carrental-full-stack.onrender.com
 
 
 
